@@ -79,7 +79,7 @@ function Navbar() {
             )}
           </div>
         ) : (
-          <div className="signin">
+          <div className="sign-in">
             <Link to="/login">Sign in</Link>
           </div>
         )}

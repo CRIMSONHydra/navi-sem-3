@@ -12,7 +12,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-console.log(firebaseConfig.apiKey);
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
