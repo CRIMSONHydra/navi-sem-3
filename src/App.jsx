@@ -11,6 +11,7 @@ import Cart from "./components/Cart";
 import UserProfile from "./components/UserProfile";
 import WishList from "./components/WishList";
 import Login from "./components/Login";
+import UserProtectedRoutes from "./components/UserProtectedRoutes";
 
 function App() {
   return (
@@ -18,10 +19,24 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<WishList />} />
-        <Route path="/user" element={<UserProfile />} />
         <Route path="/login" element={<Login />} />
+
+        {/* Protected routes(user auth) */}
+        <Route path="/cart" element={
+          <UserProtectedRoutes>
+            <Cart />
+          </UserProtectedRoutes>
+        } />
+        <Route path="/wishlist" element={
+          <UserProtectedRoutes>
+            <WishList />
+          </UserProtectedRoutes>
+        } />
+        <Route path="/user" element={
+          <UserProtectedRoutes>
+            <UserProfile />
+          </UserProtectedRoutes>
+        } />
       </Routes>
     </>
   );
