@@ -8,7 +8,7 @@ import "./navbar.css";
 //auth
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
-import useAuth from "../context/useAuth";
+import { useAuth } from "../context/useAuth";
 
 function Navbar() {
   const [input, setInput] = useState("Search...");
