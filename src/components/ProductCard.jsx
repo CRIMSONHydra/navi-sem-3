@@ -17,7 +17,7 @@ function ProductCard({product}) {
 
   return (
     <div className="product-card">
-      <img src={product.image} alt={product.title} className="product-image" />
+      <img src={product.image} alt={product.title} className="product-image" loading='lazy' />
       <h3 className="product-title">{product.title}</h3>
       <p className="product-price">${product.price}</p>
 
@@ -55,4 +55,4 @@ function ProductCard({product}) {
   )
 }
 
-export default ProductCard
+export default React.memo(ProductCard) 
