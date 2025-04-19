@@ -58,7 +58,7 @@ function Navbar() {
         {user ? (
           <div className="user-dropdown" onClick={() => setDropDown(!dropDown)}>
             <img
-              src={user.photo || "../assets/default-user.jpg"}
+              src={user.photoURL || "../assets/default-user.jpg"}
               className="profile-pic"
             />
             {user.displayName} 
