@@ -10,17 +10,16 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useAuth } from "../context/useAuth";
 
+//search context
+import { useSearch } from "../context/Search/useSearch";
+
 function Navbar() {
-  const [input, setInput] = useState("Search...");
   const [dropDown, setDropDown] = useState(false);
+
+  const { searchTerm, setSearchTerm } = useSearch();
 
   //from context
   const { user } = useAuth();
-
-  function clearSearch() {
-    //clear search field on first click
-    if (input == "Search...") setInput("");
-  }
 
   const handleSignOut = async () => {
     try {
@@ -47,9 +46,9 @@ function Navbar() {
         <div>
           <input
             type="text"
-            value={input}
-            onClick={clearSearch}
-            onChange={(e) => setInput(e.target.value)}
+            placeholder="Search...."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
