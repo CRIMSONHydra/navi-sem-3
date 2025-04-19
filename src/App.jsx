@@ -6,11 +6,11 @@ import "./App.css";
 
 //components
 import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import Cart from "./components/Cart";
-import UserProfile from "./components/UserProfile";
-import WishList from "./components/WishList";
-import Login from "./components/Login";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+import UserProfile from "./pages/UserProfile";
+import WishList from "./pages/WishList";
+import Login from "./pages/Login";
 import UserProtectedRoutes from "./components/UserProtectedRoutes";
 
 function App() {
