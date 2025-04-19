@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 
 import {useSearch} from '../context/Search/useSearch';
 
+import ProductCard from '../components/ProductCard';
+
 function Home() {
   const {searchTerm} = useSearch();
   const [products, setProducts] = useState([]);
@@ -24,13 +26,9 @@ function Home() {
   }, [products, searchTerm]);  
 
   return (
-    <div>
-      {filtered.map(prod => (
-        <div key={prod.id}>
-          <img src={prod.image} alt={prod.title} />
-          <h3>{prod.title}</h3>
-          <p>${prod.price}</p>
-        </div>
+    <div className='product-grid'>
+      {filtered.map(product => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </div>
   )

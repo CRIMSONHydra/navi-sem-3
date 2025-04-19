@@ -1,3 +1,14 @@
 body {
   background-color:rgba(61, 60, 81, 0.685);
 }
+
+/* Home.jsx */
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  padding: 32px;
+  background-color: #d7ceceda;
+  border-radius: 1%;
+}
