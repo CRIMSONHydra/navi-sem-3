@@ -30,3 +30,30 @@
   font-weight: bold;
   color: #2a9d8f;
 }
+
+.card-buttons {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.card-buttons button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #2a9d8f;
+  color: white;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.card-buttons button:hover {
+  background-color: #21867a;
+}
+
+.card-buttons button.active {
+  background-color: #e63946;
+  color: white;
+}

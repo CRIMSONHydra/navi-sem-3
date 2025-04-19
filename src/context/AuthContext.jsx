@@ -2,7 +2,7 @@
 
   import { auth, db } from "../../firebase"; //firebase.js
   import { onAuthStateChanged, signOut } from "firebase/auth";
-  import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
+  import { doc, getDoc, setDoc, serverTimestamp, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
   // context used to share auth state throughout the app
   import { AuthContext } from "./AuthContextData";
@@ -33,8 +33,8 @@
               age: null,
               dob: null,
               address: "",
-              cart: [],
-              wishlist: [],
+              cart: [], //store only productIds
+              wishlist: [], //store only productIds
               createdAt: serverTimestamp()
             };
           
@@ -53,8 +53,72 @@
 
     const logOut = () => signOut(auth);
 
+    //user objext is stored in state now
+    //CART functions
+    const addToCart = async productId => {
+      if(!user) return;
+
+      const userRef = doc(db, "users", user.uid);
+      //update firestore
+      await updateDoc(userRef, {
+        cart: arrayUnion(productId)
+      });
+      //update state
+      setUserData(prev => ({
+        ...prev,
+        cart: [...prev.cart, productId]
+      }));
+    };
+
+    const removeFromCart = async productId => {
+      if (!user) return;
+      const userRef = doc(db, 'users', user.uid);
+      await updateDoc(userRef, {
+        cart: arrayRemove(productId)
+      });
+      setUserData(prev => ({
+        ...prev,
+        cart: prev.cart.filter(id => id !== productId)
+      }));
+    };
+
+    //WISHLIST functions
+    const addToWishlist = async productId => {
+      if (!user) return;
+      const userRef = doc(db, 'users', user.uid);
+      await updateDoc(userRef, {
+        wishlist: arrayUnion(productId)
+      });
+      setUserData(prev => ({
+        ...prev,
+        wishlist: [...prev.wishlist, productId]
+      }));
+    };
+  
+    const removeFromWishlist = async productId => {
+      if (!user) return;
+      const userRef = doc(db, 'users', user.uid);
+      await updateDoc(userRef, {
+        wishlist: arrayRemove(productId)
+      });
+      setUserData(prev => ({
+        ...prev,
+        wishlist: prev.wishlist.filter(id => id !== productId)
+      }));
+    };
+
+
+
     return (
-      <AuthContext.Provider value={{user, userData, logOut}}>
+      <AuthContext.Provider value={{
+        user, 
+        userData, 
+        logOut,
+        addToCart,
+        removeFromCart,
+        addToWishlist,
+        removeFromWishlist
+      }}>
         {children}
       </AuthContext.Provider>
     );
