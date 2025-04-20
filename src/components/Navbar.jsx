@@ -19,7 +19,7 @@ function Navbar() {
   const { searchTerm, setSearchTerm } = useSearch();
 
   //from context
-  const { user } = useAuth();
+  const { user, userData } = useAuth();
 
   const handleSignOut = async () => {
     try {
@@ -61,7 +61,7 @@ function Navbar() {
               src={user.photoURL || "../assets/default-user.jpg"}
               className="profile-pic"
             />
-            {user.displayName} 
+            <span>{userData?.username}</span>
             {dropDown && (
               <ul className="dropdown-menu">
                 <li>

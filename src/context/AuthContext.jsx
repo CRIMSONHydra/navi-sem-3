@@ -2,7 +2,7 @@
 
   import { auth, db } from "../../firebase"; //firebase.js
   import { onAuthStateChanged, signOut } from "firebase/auth";
-  import { doc, getDoc, setDoc, serverTimestamp, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+  import { doc, setDoc, serverTimestamp, updateDoc, arrayUnion, arrayRemove, onSnapshot } from "firebase/firestore";
 
   // context used to share auth state throughout the app
   import { AuthContext } from "./AuthContextData";
@@ -12,6 +12,10 @@
     const [userData, setUserData] = useState(null); //userdata from firestore db
 
     useEffect(() => {
+      //save user data here realtime
+      let unsubscribeFromUserDoc = () => {};
+
+
       //eventlistener for authenthication change
       const changeUser = onAuthStateChanged(auth, async (currentUser) => {
         //default null if no user is signed in
@@ -21,34 +25,39 @@
         if(currentUser) {
           //reference to 'users' document in firestore
           const userRef = doc(db, "users", currentUser.uid);
-          //snapshot of userRef data
-          const userSnap = await getDoc(userRef);
-
-          if(!userSnap.exists()) {
-            //create new doc if user data doesnt exist
-            const newUser = {
-              uid: currentUser.uid,
-              email: currentUser.email,
-              username: currentUser.displayName || "new user",
-              age: null,
-              dob: null,
-              address: "",
-              cart: [], //store only productIds
-              wishlist: [], //store only productIds
-              createdAt: serverTimestamp()
-            };
           
-            await setDoc(userRef, newUser);
-            setUserData(newUser);
-          }
-          else setUserData(userSnap.data());
+          unsubscribeFromUserDoc = onSnapshot(userRef, async userSnap => {
+            if(!userSnap.exists()) {
+              //create new doc if user data doesnt exist
+              const newUser = {
+                uid: currentUser.uid,
+                email: currentUser.email,
+                username: currentUser.displayName || "new user",
+                phone: null,
+                age: null,
+                dob: null,
+                address: "",
+                cart: [], //store only productIds
+                wishlist: [], //store only productIds
+                createdAt: serverTimestamp()
+              };
+            
+              await setDoc(userRef, newUser);
+              setUserData(newUser);
+            }
+            else setUserData(userSnap.data());
+          });
 
         } else {//user doesnt exist /invalid /logouted
           setUserData(null);
         }
+
       });
 
-      return () => changeUser();
+      return () => {
+        changeUser();
+        unsubscribeFromUserDoc();
+      }
     }, []);
 
     const logOut = () => signOut(auth);
@@ -112,7 +121,7 @@
     return (
       <AuthContext.Provider value={{
         user, 
-        userData, 
+        userData, setUserData,
         logOut,
         addToCart,
         removeFromCart,

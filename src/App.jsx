@@ -32,7 +32,7 @@ function App() {
             <WishList />
           </UserProtectedRoutes>
         } />
-        <Route path="/user" element={
+        <Route path="/profile" element={
           <UserProtectedRoutes>
             <UserProfile />
           </UserProtectedRoutes>
