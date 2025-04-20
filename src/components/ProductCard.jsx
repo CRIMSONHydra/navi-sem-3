@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './product-card.css';
+
+import { getExchangeRate } from '../utils/getExchangeRate';
 
 import {useAuth }from '../context/useAuth'
 
@@ -15,11 +17,29 @@ function ProductCard({product}) {
   const inCart     = userData?.cart?.includes(product.id);
   const inWishlist = userData?.wishlist?.includes(product.id);
 
+  const [rate, setRate] = useState(null);
+
+  useEffect(() => {
+    async function fetchRate() {
+      const r = await getExchangeRate();
+      setRate(r);
+    }
+    fetchRate();
+  }, [])
+
+  if(rate == null) setRate(1);
+
+  const priceINR = product.price * rate;
+  const formattedPrice = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+  }).format(priceINR);
+
   return (
     <div className="product-card">
       <img src={product.image} alt={product.title} className="product-image" loading='lazy' />
       <h3 className="product-title">{product.title}</h3>
-      <p className="product-price">${product.price}</p>
+      <p className="product-price">{formattedPrice}</p>
 
       { /* Cart and Wishlist buttons */ }
       {user && (
