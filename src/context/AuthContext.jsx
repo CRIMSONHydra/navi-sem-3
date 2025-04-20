@@ -10,6 +10,7 @@
   export function AuthProvider({children}) {
     const [user, setUser] = useState(null); //user from auth
     const [userData, setUserData] = useState(null); //userdata from firestore db
+    const [loading, setLoading] = useState(true); //Indicates when user loading is done
 
     useEffect(() => {
       //save user data here realtime
@@ -20,7 +21,7 @@
       const changeUser = onAuthStateChanged(auth, async (currentUser) => {
         //default null if no user is signed in
         setUser(currentUser);
-
+        
         console.log("user changed", currentUser);
         if(currentUser) {
           //reference to 'users' document in firestore
@@ -41,16 +42,17 @@
                 wishlist: [], //store only productIds
                 createdAt: serverTimestamp()
               };
-            
+              
               await setDoc(userRef, newUser);
               setUserData(newUser);
             }
             else setUserData(userSnap.data());
           });
-
+          
         } else {//user doesnt exist /invalid /logouted
           setUserData(null);
         }
+        setLoading(false);
 
       });
 
@@ -122,6 +124,7 @@
       <AuthContext.Provider value={{
         user, 
         userData, setUserData,
+        loading,
         logOut,
         addToCart,
         removeFromCart,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useAuth } from '../context/useAuth'
 import { db } from '../../firebase';
@@ -9,14 +9,27 @@ import './user-profile.css';
 function UserProfile() {
   const {user, userData, setUserData} = useAuth();
   const [formData, setFormData] = useState({
-    username: userData?.username || '',
-    email: userData?.email || '',
-    phone: userData?.phone || '',
-    age: userData?.age || '',
-    dob: userData?.dob || '',
-    address: userData?.address || '',
+    username: '',
+    email: '',
+    phone: '',
+    age: '',
+    dob: '',
+    address: '',
   });
   const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(()=> {
+    if (userData) {
+      setFormData({
+        username: userData.username || '',
+        email: userData.email || '',
+        phone: userData.phone || '',
+        age: userData.age || '',
+        dob: userData.dob || '',
+        address: userData.address || '',
+      });
+    }
+  }, [userData]);
 
   const handleChange = e => {
     const {name, value} = e.target;
@@ -36,7 +49,7 @@ function UserProfile() {
 
       setUserData(prev => ({
         ...prev,
-        formData
+        ...formData
       }));
     } catch (error) {
       console.log("Error updating profile", error);
