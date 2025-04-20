@@ -1,6 +1,6 @@
 1/2DONE 0 - Fetch local prices of currency || only to INR implemented
 DONE 1 - Implement profile section to change name, email, phone, address, etc
-2 - Implement cart and wishlist pages
+DONE 2 - Implement cart and wishlist pages
 3 - Add Logo
 4 - Make responsive
 5 - Implement lazyloading/memoization
