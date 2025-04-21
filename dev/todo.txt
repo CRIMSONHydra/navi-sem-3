@@ -2,5 +2,5 @@
 DONE 1 - Implement profile section to change name, email, phone, address, etc
 DONE 2 - Implement cart and wishlist pages
 DONE 3 - Add Logo
-4 - Make responsive
+DONE 4 - Make responsive
 DONE 5 - Implement lazyloading/memoization
