@@ -22,6 +22,7 @@ Authenthication context is present throughout the entire app and uses firebase a
 Stores the user details like name, age, phone number as well as their cart and wishlist details
 
 6. Currency API
+
 fakestore api by default provides products with prices in USD. An API fetches the current dollar to inr exchange rate and converts the prices
 
 8. Custom CSS
