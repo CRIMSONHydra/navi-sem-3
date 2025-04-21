@@ -1,13 +1,18 @@
 .container {
   padding: 2rem;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 h2 {
-  margin-bottom: "1rem";
+  margin-bottom: 1rem;
+  color: #fff;
+
 }
 
 .count {
-  margin-top: "2rem";
-  font-weight: "bold";
-  font-size: "1.2rem";
+  margin-top: 2rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #fff;
 }

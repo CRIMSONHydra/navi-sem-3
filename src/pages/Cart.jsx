@@ -4,6 +4,7 @@ import ProductCard from '../components/ProductCard';
 import { getExchangeRate } from '../utils/getExchangeRate';
 
 import { useAuth } from '../context/useAuth';
+import './cart.css';
 
 function Cart() {
   const { userData} = useAuth();
@@ -50,6 +51,12 @@ function Cart() {
         </div>
       )}
     </div>
+
+    // <div className='product-grid'>
+    // {filtered.map(product => (
+    //   <ProductCard key={product.id} product={product} />
+    // ))}
+    // </div>
   )
 }
 

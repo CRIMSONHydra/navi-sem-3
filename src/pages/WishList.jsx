@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react'
 import ProductCard from '../components/ProductCard';
 
 import { useAuth } from '../context/useAuth';
+import './wishlist.css';
 
 function WishList() {
   const { userData} = useAuth();

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 //assets
 import Logo from "../assets/Logo.png";
@@ -29,6 +29,9 @@ function Navbar() {
     }
   }
 
+  const location = useLocation();
+  const isHomePage = (location.pathname == "" || location.pathname == "/")
+
   return (
     <nav>
       <div className="nav-left">
@@ -43,14 +46,16 @@ function Navbar() {
           <Link to="/">Home</Link>
         </div>
 
-        <div>
-          <input
-            type="text"
-            placeholder="Search...."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
+        {isHomePage && (
+          <div>
+            <input
+              type="text"
+              placeholder="Search...."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        )}
       </div>
 
       <div className="user-section">
