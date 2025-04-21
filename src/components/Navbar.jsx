@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 //assets
-import Logo from "../assets/placeholder-logo.jpg";
+import Logo from "../assets/Logo.png";
 import "./navbar.css";
 
 //auth
