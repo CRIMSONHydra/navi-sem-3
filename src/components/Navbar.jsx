@@ -34,16 +34,17 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="nav-left">
-        <Link to="/" className="logo">
-          <img src={Logo} alt="Logo" />
-        </Link>
-
         <button
           className="hamburger"
           onClick={() => setMenuOpen((prev) => !prev)}
         >
           ☰
         </button>
+        
+        <Link to="/" className="logo">
+          <img src={Logo} alt="Logo" />
+        </Link>
+
 
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
           <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>

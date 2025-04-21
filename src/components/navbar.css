@@ -108,6 +108,14 @@ a:hover {
 @media (max-width: 768px) {
   .hamburger {
     display: block;
+    margin-left: 0.5rem; /* Add spacing if needed */
+  }
+
+  .nav-left {
+    flex-direction: row;
+    justify-content: flex-start; /* Align items to the left */
+    align-items: center;
+    width: 100%;
   }
 
   .nav-links {
@@ -119,13 +127,6 @@ a:hover {
 
   .nav-links.open {
     display: flex;
-  }
-
-  .nav-left {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
   }
 
   .user-section {
