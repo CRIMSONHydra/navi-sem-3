@@ -25,13 +25,13 @@ Stores the user details like name, age, phone number as well as their cart and w
 
 fakestore api by default provides products with prices in USD. An API fetches the current dollar to inr exchange rate and converts the prices
 
-8. Custom CSS
+7. Custom CSS
 >responsive nature with media queries and keyframe animations for loading components
 
 8. Environment variables
 >All firebase config files are stored in env variables
 
-8. Vercel
+9. Vercel
 >Deployment
 
 ## Setup
@@ -49,3 +49,4 @@ npm run dev
 
 ## Screenshots
 ![image](https://github.com/user-attachments/assets/eeddbd17-4b04-4240-87d1-896dbde9f7bd)
+![image](https://github.com/user-attachments/assets/46315349-8292-4820-86a3-c7002374b21d)
