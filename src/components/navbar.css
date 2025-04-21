@@ -1,70 +1,92 @@
-nav {
+.navbar {
   background-color: #222;
   color: #fff;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1.5rem;
+  align-items: center;
+  padding: 0.5rem 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  border-radius: 10%;
+  flex-wrap: wrap;
+  border-radius: 5%;
 }
 
 .nav-left {
   display: flex;
-  align-items: center;
-  gap: 2rem;
+  justify-content: space-between;
+  gap: 1.5rem;
 }
 
 a {
-  color: #fff;
   text-decoration: none;
+  color: #fff;
 }
 
 a:hover {
   color: #ddd;
 }
 
-img {
+.logo img {
   height: 40px;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  font-size: 1.8rem;
+  border: none;
+  color: white;
+  cursor: pointer;
 }
 
 .nav-links {
   display: flex;
   gap: 1rem;
-  margin: 0;
-  padding: 0;
+  align-items: center;
 }
 
-input {
+.nav-links input {
   padding: 0.4rem 0.6rem;
   border: none;
   border-radius: 4px;
   font-size: 1rem;
 }
 
-input:focus {
+.nav-links input:focus {
   outline: 1px solid rgb(65, 135, 170);
   box-shadow: 2px 2px 5px rgba(100, 117, 189, 0.399);
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .user-dropdown {
   position: relative;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile-pic {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 110%;
+  top: 120%;
   left: 50%;
   transform: translateX(-50%);
   background-color: #333;
   border: 1px solid #444;
   border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   padding: 0.5rem;
   z-index: 100;
-
-  min-width: 80px;
+  min-width: 120px;
 }
 
 .dropdown-menu li {
@@ -73,26 +95,41 @@ input:focus {
 }
 
 .dropdown-menu li:hover {
-  color: #ddd;
-  background-color: #6563637a;
-}
-
-.dropdown-menu li a {
-  transition: color 0.2s ease;
+  background-color: #444;
+  color: white;
 }
 
 .sign-in a {
-  color: #fff;
-  text-decoration: none;
+  color: white;
   font-weight: bold;
-  transition: color 0.2s ease;
 }
 
-.sign-in a:hover {
-  color: #ddd;
-}
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
 
-.user-section {
-  display: flex;
-  align-items: center;
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-left {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .user-section {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }

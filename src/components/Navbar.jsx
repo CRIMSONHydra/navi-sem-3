@@ -1,83 +1,78 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-//assets
 import Logo from "../assets/Logo.png";
 import "./navbar.css";
 
-//auth
-import { signOut } from "firebase/auth";
+//firebase.js
 import { auth } from "../../firebase";
-import { useAuth } from "../context/useAuth";
 
-//search context
+import { signOut } from "firebase/auth";
+//contexts
+import { useAuth } from "../context/useAuth";
 import { useSearch } from "../context/Search/useSearch";
 
 function Navbar() {
-  const [dropDown, setDropDown] = useState(false);
-
+  const [dropDown, setDropDown] = useState(false); //profile section
+  const [menuOpen, setMenuOpen] = useState(false);
+  //contexts
   const { searchTerm, setSearchTerm } = useSearch();
-
-  //from context
   const { user, userData } = useAuth();
+
+  //disable searchbar based on route
+  const location = useLocation();
+  const isHomePage = location.pathname === "/" || location.pathname === "";
 
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-    } catch(error) {
+    } catch (error) {
       console.log("sign out error Navbar.jsx", error);
     }
-  }
-
-  const location = useLocation();
-  const isHomePage = (location.pathname == "" || location.pathname == "/")
+  };
 
   return (
-    <nav>
+    <nav className="navbar">
       <div className="nav-left">
-        <div>
-          <Link to="/">
-            <img src={Logo} />
-          </Link>
-        </div>
+        <Link to="/" className="logo">
+          <img src={Logo} alt="Logo" />
+        </Link>
 
-        {/* Nav components */}
-        <div className="nav-links">
-          <Link to="/">Home</Link>
-        </div>
+        <button
+          className="hamburger"
+          onClick={() => setMenuOpen((prev) => !prev)}
+        >
+          ☰
+        </button>
 
-        {isHomePage && (
-          <div>
+        <div className={`nav-links ${menuOpen ? "open" : ""}`}>
+          <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+          {isHomePage && (
             <input
               type="text"
               placeholder="Search...."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       <div className="user-section">
-        {/* If User is logged in then show profile pic and other user accessible pages otherwise sign in page */}
+        {/*Show user section if signed in otherwise sign in option */}
         {user ? (
           <div className="user-dropdown" onClick={() => setDropDown(!dropDown)}>
             <img
               src={user.photoURL || "../assets/default-user.jpg"}
               className="profile-pic"
+              alt="Profile"
             />
             <span>{userData?.username}</span>
             {dropDown && (
               <ul className="dropdown-menu">
-                <li>
-                  <Link to="/profile">Profile</Link>
-                </li>
-                <li>
-                  <Link to="/cart">Cart</Link>
-                </li>
-                <li>
-                  <Link to="/wishlist">Wish List</Link>
-                </li>
+                <li><Link to="/profile">Profile</Link></li>
+                <li><Link to="/cart">Cart</Link></li>
+                <li><Link to="/wishlist">Wish List</Link></li>
                 <li onClick={handleSignOut}>Sign Out</li>
               </ul>
             )}
